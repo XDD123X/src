@@ -1,0 +1,71 @@
+﻿@page "{SearchString?}"
+@model WebApplication1.Pages.Serives.IndexModel
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Service Manage</h1>
+<form>
+	<label>Room</label>
+	<input type="text" asp-for="SearchString" />
+	<button type="submit">Search</button>
+</form>
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Room Title
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Service[0].FeeType)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Service[0].Month)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Service[0].Year)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Service[0].Amount)
+			</th>
+			<th>
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Service)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.RoomTitleNavigation.Title)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.FeeType)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Month)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Year)
+				</td>
+				<td>
+					@item.Amount.ToString()
+				</td>
+				<td>
+					@if (item.PaymentDate == null)
+					{
+						<span>unpaid</span>
+					}
+					else
+					{
+						<span>Service has been pay Employee: @Html.DisplayFor(modelItem => item.EmployeeNavigation.Name)</span>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
